@@ -18,9 +18,9 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-         docker build -t ghcr.io/${{ github.repository_owner.lower() }}/my-app:staging .
-         docker push ghcr.io/${{ github.repository_owner.lower() }}/my-app:staging
-
+          REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ghcr.io/$REPO_OWNER/my-app:staging .
+          docker push ghcr.io/$REPO_OWNER/my-app:staging
 
       - name: Deploy to Staging Server
         run: |
