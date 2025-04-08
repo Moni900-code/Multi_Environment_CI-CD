@@ -1,32 +1,21 @@
+# .github/workflows/staging.yml
 name: Deploy to Staging
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-- name: Login to GHCR
-  run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Setup environment variables
+        run: echo "Deploying to STAGING environment"
 
-- name: Build and Push Docker Image
-  run: |
-    REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-    docker build -t ghcr.io/$REPO_OWNER/my-app:staging .
-    docker push ghcr.io/$REPO_OWNER/my-app:staging
-
-      - name: Deploy to Staging Server
-        run: |
-          ssh user@staging-server-ip << 'EOF'
-            docker pull ghcr.io/${{ github.repository_owner }}/my-app:staging
-            docker stop my-app || true
-            docker rm my-app || true
-            docker run -d -p 3000:3000 --name my-app ghcr.io/${{ github.repository_owner }}/my-app:staging
-          EOF
+      - name: Simulate deployment
+        run: echo "🚀 Staging deployment successful!"
