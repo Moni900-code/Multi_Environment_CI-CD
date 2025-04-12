@@ -29,7 +29,7 @@ Finally, we say that, Multiple Enviroments is the process of releasing your app 
 ---
 
 ##  Practical Flow :
-![Diagram](canaryDeploymentworkflow.svg)
+![Diagram](multiEnvironmentDiagram.svg)
 
 ###  Why use it?
 
